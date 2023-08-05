@@ -30,6 +30,10 @@ public class CursorManager : MonoBehaviour
                 var teleportScript = clickedObject.GetComponent<Teleport>();
                 teleportScript?.TeleportToScene();  //场景传送
                 break;
+            case "Item":
+                var itemScript = clickedObject.GetComponent<Item>();
+                itemScript?.ItemClicked();          //物品被点击
+                break;
         }
     }
 
