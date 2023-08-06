@@ -18,7 +18,8 @@ public class InventoryManager : Singleton<InventoryManager>
         if (!itemList.Contains(itemName))
         {
             itemList.Add(itemName);     //添加物品到列表
-            //TODO: 添加UI显示
+            
+            EventHandler.CallUpdateUIEvent(itemData.GetItemData(itemName), itemList.Count - 1); //调用UI更新事件
         }
     }
 }
