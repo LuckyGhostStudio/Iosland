@@ -19,7 +19,7 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             itemList.Add(itemName);     //添加物品到列表
             
-            EventHandler.CallUpdateUIEvent(itemData.GetItemData(itemName), itemList.Count - 1); //调用UI更新事件
+            EventHandler.CallItemPickedEvent(itemData.GetItemData(itemName), itemList.Count - 1); //调用物品被拾取事件
         }
     }
 }

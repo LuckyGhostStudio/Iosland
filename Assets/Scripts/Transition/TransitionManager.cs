@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class TransitionManager : Singleton<TransitionManager>
 {
+    [SceneName] public string startScene;   //开始场景
+
     public CanvasGroup fadeCanvasGroup;
     public float fadeDuration;  //淡入淡出持续时间
 
     private bool isFade;        //场景正在淡入淡出
+
+    private void Start()
+    {
+        StartCoroutine(TransitionToScene(string.Empty, startScene));    //传送到开始场景
+    }
 
     /// <summary>
     /// 场景传送
@@ -24,12 +31,19 @@ public class TransitionManager : Singleton<TransitionManager>
     {
         yield return Fade(1);   //场景淡出
 
-        yield return SceneManager.UnloadSceneAsync(from);                       //卸载源场景
+        if (from != string.Empty)   //源场景存在
+        {
+            EventHandler.CallBeforeSceneUnloadEvent();          //调用场景卸载前的事件
+
+            yield return SceneManager.UnloadSceneAsync(from);   //卸载源场景
+        }
+
         yield return SceneManager.LoadSceneAsync(to, LoadSceneMode.Additive);   //加载目的场景 加载模式：叠加（叠加到President场景）
 
         //设置to场景为激活场景 to场景为新添加的场景 index = 场景数量 - 1
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
 
+        EventHandler.CallAfterSceneLoadedEvent();   //调用场景加载后的事件
         yield return Fade(0);   //场景淡入
     }
 

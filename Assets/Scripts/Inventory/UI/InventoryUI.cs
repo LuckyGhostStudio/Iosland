@@ -13,12 +13,12 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.UpdateUIEvent += OnUpdateUIEvent;  //注册 UI更新事件处理方法
+        EventHandler.ItemPickedEvent += OnUpdateUIEvent;  //注册 UI更新事件处理方法
     }
 
     private void OnDisable()
     {
-        EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
+        EventHandler.ItemPickedEvent -= OnUpdateUIEvent;
     }
 
     /// <summary>
