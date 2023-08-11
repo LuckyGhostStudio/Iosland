@@ -20,6 +20,7 @@ public class ObjectManager : MonoBehaviour
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         EventHandler.ItemPickedEvent -= OnItemPickedEvent;
     }
+
     private void OnBeforeSceneUnloadEvent()
     {
         //当前场景中所有Item
@@ -31,6 +32,7 @@ public class ObjectManager : MonoBehaviour
             }
         }
     }
+
     private void OnAfterSceneLoadedEvent()
     {
         //当前场景中所有Item

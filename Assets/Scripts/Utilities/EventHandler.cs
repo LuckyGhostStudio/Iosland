@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public static class EventHandler
@@ -33,5 +34,17 @@ public static class EventHandler
     public static void CallAfterSceneLoadedEvent()
     {
         AfterSceneLoadedEvent?.Invoke();
+    }
+
+    public static event Action<ItemDetails, bool> ItemSelectedEvent;    //物品被鼠标选中事件
+
+    /// <summary>
+    /// 调用物品被鼠标选中事件
+    /// </summary>
+    /// <param name="itemDetails">物品信息</param>
+    /// <param name="selected">选中状态</param>
+    public static void CallItemSelectedEvent(ItemDetails itemDetails, bool selected)
+    {
+        ItemSelectedEvent?.Invoke(itemDetails, selected);
     }
 }
