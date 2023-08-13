@@ -39,6 +39,7 @@ public class CursorManager : MonoBehaviour
 
     private void OnItemUsedEvent(ItemName name)
     {
+        // TODO:使用物品后SoltUI.isSelected还是true 需要变回false才能选择下一个物品，否则要点两次
         currentItem = ItemName.None;
         holdItem = false;
         hand.gameObject.SetActive(false);   //隐藏手

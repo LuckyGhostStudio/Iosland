@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,42 @@ public class InventoryManager : Singleton<InventoryManager>
     private void OnEnable()
     {
         EventHandler.ItemUsedEvent += OnItemUsedEvent;
+        EventHandler.ItemSwitchedEvent += OnItemSwitchedEvent;
+        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.ItemUsedEvent -= OnItemUsedEvent;
+        EventHandler.ItemSwitchedEvent -= OnItemSwitchedEvent;
+        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+    }
+
+    private void OnAfterSceneLoadedEvent()
+    {
+        if (itemList.Count == 0)
+        {
+            EventHandler.CallUpdateUIEvent(null, -1);
+        }
+        else
+        {
+            for(int i = 0; i < itemList.Count; i++)
+            {
+                EventHandler.CallUpdateUIEvent(itemData.GetItemData(itemList[i]), i);   //调用更新UI事件
+            }
+        }
+    }
+
+    /// <summary>
+    /// 物品切换事件处理方法
+    /// </summary>
+    /// <param name="index">已切换到的物品编号</param>
+    private void OnItemSwitchedEvent(int index)
+    {
+        if (index >= 0 && index < itemList.Count)
+        {
+            EventHandler.CallUpdateUIEvent(itemData.GetItemData(itemList[index]), index);   //调用更新UI事件
+        }
     }
 
     /// <summary>
@@ -29,7 +61,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
         if (itemList.Count == 0)
         {
-            EventHandler.CallItemPickedEvent(null, -1); //调用物品被拾取事件 更新SlotUI
+            EventHandler.CallUpdateUIEvent(null, -1); //调用物品被拾取事件 更新SlotUI
         }
     }
 
@@ -43,8 +75,13 @@ public class InventoryManager : Singleton<InventoryManager>
         if (!itemList.Contains(itemName))
         {
             itemList.Add(itemName);     //添加物品到列表
-            
-            EventHandler.CallItemPickedEvent(itemData.GetItemData(itemName), itemList.Count - 1); //调用物品被拾取事件
+
+            EventHandler.CallUpdateUIEvent(itemData.GetItemData(itemName), itemList.Count - 1); //调用UI更新事件
         }
+    }
+
+    public int GetItemsCount()
+    {
+        return itemList.Count;
     }
 }

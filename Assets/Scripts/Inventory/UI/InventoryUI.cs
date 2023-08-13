@@ -13,12 +13,12 @@ public class InventoryUI : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.ItemPickedEvent += OnUpdateUIEvent;  //注册 UI更新事件处理方法
+        EventHandler.UpdateUIEvent += OnUpdateUIEvent;  //注册 UI更新事件处理方法
     }
 
     private void OnDisable()
     {
-        EventHandler.ItemPickedEvent -= OnUpdateUIEvent;
+        EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class InventoryUI : MonoBehaviour
     private void OnUpdateUIEvent(ItemDetails itemDetails, int index)
     {
         //物品为空
-        if(itemDetails == null)
+        if (itemDetails == null)
         {
             slotUI.SetEmpty();  //设置Slot为空
             currentIndex = -1;
@@ -41,6 +41,37 @@ public class InventoryUI : MonoBehaviour
         {
             currentIndex = index;
             slotUI.SetItem(itemDetails);    //设置物品信息
+
+            if(currentIndex > 0)    //在最右边
+            {
+                leftButton.interactable = true;
+                rightButton.interactable = false;
+            }
         }
+    }
+
+    /// <summary>
+    /// 切换物品
+    /// </summary>
+    /// <param name="amount">增减量</param>
+    public void SwitchItem(int amount)
+    {
+        if (currentIndex + amount <= 0)  //在最左边
+        {
+            leftButton.interactable = false;
+            rightButton.interactable = true;
+        }
+        else if (currentIndex + amount >= InventoryManager.Instance.GetItemsCount() - 1)    //在最右边
+        {
+            leftButton.interactable = true;
+            rightButton.interactable = false;
+        }
+        else
+        {
+            leftButton.interactable = true;
+            rightButton.interactable = true;
+        }
+
+        EventHandler.CallItemSwitchedEvent(currentIndex + amount);  //调用物品切换事件
     }
 }

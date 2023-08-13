@@ -12,14 +12,14 @@ public class ObjectManager : MonoBehaviour
         //注册 事件处理函数
         EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
-        EventHandler.ItemPickedEvent += OnItemPickedEvent;
+        EventHandler.UpdateUIEvent += OnItemPickedEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
-        EventHandler.ItemPickedEvent -= OnItemPickedEvent;
+        EventHandler.UpdateUIEvent -= OnItemPickedEvent;
     }
 
     private void OnBeforeSceneUnloadEvent()
