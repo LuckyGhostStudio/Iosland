@@ -47,4 +47,15 @@ public static class EventHandler
     {
         ItemSelectedEvent?.Invoke(itemDetails, selected);
     }
+
+    public static event Action<ItemName> ItemUsedEvent; //物品被使用事件
+
+    /// <summary>
+    /// 调用物品被使用事件
+    /// </summary>
+    /// <param name="name">物品名字</param>
+    public static void CallItemUsedEvent(ItemName name)
+    {
+        ItemUsedEvent?.Invoke(name);
+    }
 }

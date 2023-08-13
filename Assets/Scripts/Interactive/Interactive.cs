@@ -17,8 +17,9 @@ public class Interactive : MonoBehaviour
         if(itemName == requireItem && !isDone)  //是需求物品 互动未结束
         {
             isDone = true;
-            //使用物品 从背包移除
-            OnClickedAction();
+            
+            OnClickedAction();                          //进行互动
+            EventHandler.CallItemUsedEvent(itemName);   //调用物品被使用事件
         }
     }
 

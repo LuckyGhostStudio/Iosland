@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectManager : MonoBehaviour
 {
     private Dictionary<ItemName, bool> itemAvailableDict = new Dictionary<ItemName, bool>();    //物品名字-是否启用 字典
+    private Dictionary<string, bool> interactiveStateDict = new Dictionary<string, bool>();     //互动状态-是否已完成 字典
 
     private void OnEnable()
     {
@@ -31,6 +32,19 @@ public class ObjectManager : MonoBehaviour
                 itemAvailableDict.Add(item.itemName, true); //添加item到字典
             }
         }
+
+        //当前场景中所有互动
+        foreach (var interactive in FindObjectsOfType<Interactive>())
+        {
+            if (interactiveStateDict.ContainsKey(interactive.name))
+            {
+                interactiveStateDict[interactive.name] = interactive.isDone;    //保存互动状态
+            }
+            else
+            {
+                interactiveStateDict.Add(interactive.name, interactive.isDone); //添加
+            }
+        }
     }
 
     private void OnAfterSceneLoadedEvent()
@@ -45,6 +59,19 @@ public class ObjectManager : MonoBehaviour
             else
             {
                 item.gameObject.SetActive(itemAvailableDict[item.itemName]);    //设置item启用状态
+            }
+        }
+
+        //当前场景中所有互动
+        foreach (var interactive in FindObjectsOfType<Interactive>())
+        {
+            if (interactiveStateDict.ContainsKey(interactive.name))
+            {
+                interactive.isDone = interactiveStateDict[interactive.name];    //设置互动状态
+            }
+            else
+            {
+                interactiveStateDict.Add(interactive.name, interactive.isDone); //添加
             }
         }
     }
