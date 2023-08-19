@@ -69,4 +69,26 @@ public static class EventHandler
     {
         ItemSwitchedEvent?.Invoke(index);
     }
+
+    public static event Action<string> ShowDialogueEvent;  //显示对话事件
+
+    /// <summary>
+    /// 调用显示对话事件
+    /// </summary>
+    /// <param name="dialogue">要显示的对话</param>
+    public static void CallShowDialogueEvent(string dialogue)
+    {
+        ShowDialogueEvent?.Invoke(dialogue);
+    }
+
+    public static event Action<GameState> GameStateChangedEvent;    //游戏状态改变事件
+
+    /// <summary>
+    /// 调用游戏状态改变事件
+    /// </summary>
+    /// <param name="state">要设置的游戏状态</param>
+    public static void CallGameStateChangedEvent(GameState state)
+    {
+        GameStateChangedEvent?.Invoke(state);
+    }
 }

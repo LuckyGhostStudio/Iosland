@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 412060380}
   - component: {fileID: 412060379}
   - component: {fileID: 412060381}
+  - component: {fileID: 412060382}
   m_Layer: 0
   m_Name: Character
   m_TagString: Interactive
@@ -210,11 +211,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 412060378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb791da5fc54b26489d5bf95c02b6336, type: 3}
+  m_Script: {fileID: 11500000, guid: d9825a18027adb54aa7f7ee8d2c4b874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   requireItem: 2
   isDone: 0
+--- !u!114 &412060382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412060378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226e54648095c1b419616204a06272f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueEmpty: {fileID: 11400000, guid: 9ee8c1c1ddb2741488a1e5661739dcd5, type: 2}
+  dialogueFinish: {fileID: 11400000, guid: cdc39561e7f488a478db64e375ecaffb, type: 2}
 --- !u!1 &824709009
 GameObject:
   m_ObjectHideFlags: 0

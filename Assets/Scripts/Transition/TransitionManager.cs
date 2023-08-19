@@ -11,10 +11,26 @@ public class TransitionManager : Singleton<TransitionManager>
     public float fadeDuration;  //淡入淡出持续时间
 
     private bool isFade;        //场景正在淡入淡出
+    private bool canTransition; //可传送
+
+    private void OnEnable()
+    {
+        EventHandler.GameStateChangedEvent += OnGameStateChangedEvent;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.GameStateChangedEvent -= OnGameStateChangedEvent;
+    }
 
     private void Start()
     {
         StartCoroutine(TransitionToScene(string.Empty, startScene));    //传送到开始场景
+    }
+
+    private void OnGameStateChangedEvent(GameState state)
+    {
+        canTransition = state == GameState.GamePlay;    //Play时可传送
     }
 
     /// <summary>
@@ -24,7 +40,7 @@ public class TransitionManager : Singleton<TransitionManager>
     /// <param name="to">目的场景</param>
     public void Transition(string from, string to)
     {
-        if(!isFade) StartCoroutine(TransitionToScene(from, to));    //从from场景传送到to场景
+        if (!isFade && canTransition) StartCoroutine(TransitionToScene(from, to));    //从from场景传送到to场景
     }
 
     private IEnumerator TransitionToScene(string from, string to)
@@ -60,7 +76,7 @@ public class TransitionManager : Singleton<TransitionManager>
         float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / fadeDuration;    //淡入淡出速度
 
         //当前fadeCanvas 的alpha和目标alpha不相似
-        while(!Mathf.Approximately(fadeCanvasGroup.alpha, targetAlpha))
+        while (!Mathf.Approximately(fadeCanvasGroup.alpha, targetAlpha))
         {
             fadeCanvasGroup.alpha = Mathf.MoveTowards(fadeCanvasGroup.alpha, targetAlpha, speed * Time.deltaTime);  //当前alpha转变到目标alpha
             yield return null;
