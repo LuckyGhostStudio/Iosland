@@ -91,4 +91,14 @@ public static class EventHandler
     {
         GameStateChangedEvent?.Invoke(state);
     }
+
+    public static event Action CheckMiniGameStateEvent; //检查Mini Game状态
+
+    /// <summary>
+    /// 调用检查Mini Game状态事件
+    /// </summary>
+    public static void CallCheckMiniGameStateEvent()
+    {
+        CheckMiniGameStateEvent?.Invoke();
+    }
 }
