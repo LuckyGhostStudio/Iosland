@@ -92,7 +92,7 @@ public static class EventHandler
         GameStateChangedEvent?.Invoke(state);
     }
 
-    public static event Action CheckMiniGameStateEvent; //检查Mini Game状态
+    public static event Action CheckMiniGameStateEvent; //检查Mini Game状态事件
 
     /// <summary>
     /// 调用检查Mini Game状态事件
@@ -100,5 +100,16 @@ public static class EventHandler
     public static void CallCheckMiniGameStateEvent()
     {
         CheckMiniGameStateEvent?.Invoke();
+    }
+
+    public static event Action<string> MiniGamePassEvent;   //mini game通关事件
+
+    /// <summary>
+    /// 调用mini game通关事件
+    /// </summary>
+    /// <param name="gameName"></param>
+    public static void CallMiniGamePassEvent(string gameName)
+    {
+        MiniGamePassEvent?.Invoke(gameName);
     }
 }

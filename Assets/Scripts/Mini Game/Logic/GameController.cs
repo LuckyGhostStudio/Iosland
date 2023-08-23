@@ -45,6 +45,7 @@ public class GameController : Singleton<GameController>
         {
             holder.GetComponent<Collider2D>().enabled = false;
         }
+        EventHandler.CallMiniGamePassEvent(gameData.gameName);  //调用MiniGame通关事件
         OnFinish?.Invoke(); //调用MiniGame结束事件
     }
 

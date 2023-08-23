@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CursorManager : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class CursorManager : MonoBehaviour
         canClick = GetColliderAtMousePosition();
 
         if (hand.gameObject.activeInHierarchy) hand.position = Input.mousePosition; //手在鼠标位置
+
+        if (InteractWithUI()) return;   //鼠标在UI上
 
         if(canClick && Input.GetMouseButtonDown(0)) //鼠标位置有可点击碰撞体 && 左键按下
         {
@@ -97,5 +100,19 @@ public class CursorManager : MonoBehaviour
     private Collider2D GetColliderAtMousePosition()
     {
         return Physics2D.OverlapPoint(mouseWorldPos);   //覆盖鼠标坐标的Collider
+    }
+
+    /// <summary>
+    /// 判断鼠标是否和UI互动
+    /// </summary>
+    /// <returns></returns>
+    private bool InteractWithUI()
+    {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        return false;
     }
 }

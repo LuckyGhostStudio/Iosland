@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameH2AData", menuName = "Mini Game Data/GameH2AData")]
 public class GameH2AData_SO : ScriptableObject
 {
+    [SceneName] public string gameName;
+
     public List<BallDetails> ballDataList;      //球信息列表
 
     [Header("初始信息数据")]
