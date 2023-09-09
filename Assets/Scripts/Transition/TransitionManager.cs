@@ -16,17 +16,24 @@ public class TransitionManager : Singleton<TransitionManager>
     private void OnEnable()
     {
         EventHandler.GameStateChangedEvent += OnGameStateChangedEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.GameStateChangedEvent -= OnGameStateChangedEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+    }
+    //private void Start()
+    //{
+    //    StartCoroutine(TransitionToScene(string.Empty, startScene));    //传送到开始场景
+    //}
+
+    private void OnStartNewGameEvent(int obj)
+    {
+        StartCoroutine(TransitionToScene("Menu", startScene));    //传送到开始场景
     }
 
-    private void Start()
-    {
-        StartCoroutine(TransitionToScene(string.Empty, startScene));    //传送到开始场景
-    }
 
     private void OnGameStateChangedEvent(GameState state)
     {

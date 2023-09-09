@@ -112,4 +112,15 @@ public static class EventHandler
     {
         MiniGamePassEvent?.Invoke(gameName);
     }
+
+    public static event Action<int> StartNewGameEvent;  //开始新游戏事件
+
+    /// <summary>
+    /// 调用开始新游戏事件
+    /// </summary>
+    /// <param name="gameWeek">游戏周目</param>
+    public static void CallStartNewGameEvent(int gameWeek)
+    {
+        StartNewGameEvent?.Invoke(gameWeek);
+    }
 }

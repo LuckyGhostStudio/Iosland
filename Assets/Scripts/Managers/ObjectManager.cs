@@ -13,6 +13,7 @@ public class ObjectManager : MonoBehaviour
         EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
         EventHandler.UpdateUIEvent += OnItemPickedEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
     private void OnDisable()
@@ -20,6 +21,14 @@ public class ObjectManager : MonoBehaviour
         EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         EventHandler.UpdateUIEvent -= OnItemPickedEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
+    }
+
+    private void OnStartNewGameEvent(int obj)
+    {
+        //清空物品和互动字典
+        itemAvailableDict.Clear();
+        interactiveStateDict.Clear();
     }
 
     private void OnBeforeSceneUnloadEvent()

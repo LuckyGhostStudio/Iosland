@@ -7,7 +7,8 @@ public class GameController : Singleton<GameController>
 {
     public UnityEvent OnFinish; //MiniGame结束事件
 
-    public GameH2AData_SO gameData;
+    public GameH2AData_SO gameData;         //当前周目数据
+    public GameH2AData_SO[] gameDataArray;  //所有周目的mini game数据
 
     public GameObject lineParent;
     public LineRenderer linePrefab;
@@ -96,5 +97,13 @@ public class GameController : Singleton<GameController>
             holderTransform[i].gameObject.GetComponent<Holder>().isEmpty = false;
             ball.SetupBall(gameData.GetBallDetails(gameData.startBallOrder[i]));    //设置Ball信息
         }
+    }
+
+    public void SetGameWeekData(int gameWeek)
+    {
+        gameData = gameDataArray[gameWeek];
+
+        DrawLine();
+        CreateBall();
     }
 }
